@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="task" placeholder="Type your task"/>
+        <button id="createTask" onclick="createTask()">Add Task</button>
+    </div>
+
+    <div>
+        <table id="tableToDo">
+            <tr>
+                <th>Task</th>
+                <th>Actions</th>
+            </tr>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    
+    function createTask(){
+        if(document.getElementById('task').value !== ""){
+
+            theTable = document.getElementById('tableToDo');
+            newRow = theTable.insertRow(-1);
+            newColumnTask = newRow.insertCell(0);
+            newColumnActions = newRow.insertCell(1);
+
+            newColumnTask.innerHTML = document.getElementById('task').value;
+            newColumnActions.innerHTML = "<button onclick='editTask(this)'>Edit</button> <button onclick='deleteTask(this)'>Delete</button>";
+            
+            document.getElementById('task').value="";
+        }
+    }
+    
+    function editTask(button){
+        currentRow = button.closest("tr"); 
+        editedTask = prompt("Edit", currentRow.cells[0].innerText)
+        currentRow.cells[0].innerText = editedTask;
+    }
+
+    function deleteTask(button){
+        currentRow = button.closest("tr");
+        document.getElementById("tableToDo").deleteRow(currentRow.rowIndex); 
+    }
+
+</script>
